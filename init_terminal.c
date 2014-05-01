@@ -12,6 +12,8 @@ void init_terminal()
     gl_env.stdio_backup = dup(1);
     dup2(fd, 1);
 
+    signal(SIGINT, quit);
+
     if (tcgetattr(fd, &(gl_env.line_backup)) < 0)
     {
         my_str("error tcgetattr");

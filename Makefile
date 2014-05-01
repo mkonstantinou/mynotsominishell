@@ -1,5 +1,5 @@
 NAME=mynotsominishell
-SRC=mynotsominishell.c init_terminal.c get_win_size.c
+SRC=mynotsominishell.c init_terminal.c get_win_size.c quit.c
 OBJ=$(SRC:.c=.o)
 LIBPATH=../lib
 RM=rm -f
