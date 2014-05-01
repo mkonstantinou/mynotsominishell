@@ -1,5 +1,6 @@
 NAME=mynotsominishell
-SRC=mynotsominishell.c
+SRC=mynotsominishell.c init_terminal.c get_win_size.c
+OBJ=$(SRC:.c=.o)
 LIBPATH=../lib
 RM=rm -f
 LIBS=-lmy -lpthread
