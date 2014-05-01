@@ -5,7 +5,7 @@ int main(int argc, char** argv)
 {
     int n;
     int m;
-    
+	int array[100];
     init_terminal();
 
     
