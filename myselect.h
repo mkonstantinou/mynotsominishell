@@ -44,8 +44,16 @@
 #define VICAP "\E[?25l" // same as above but for VI
 //#define ESC "\033"
 #define ESC 27
+#define CTRL_K 43
+#define CTRL_Y 57
+#define CTRL_A 33
+#define CTRL_E 37
+#define CTRL_L 44
+#define CTRL_C 35
+
 #define SPACE "\040"
 #define ENTER "\013"
+
 
 typedef struct	s_elem
 {
