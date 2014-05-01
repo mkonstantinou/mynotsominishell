@@ -7,7 +7,7 @@ int main(int argc, char** argv)
     int m;
 	int array[100];
     init_terminal();
-    
+	char *dir; 
     char* buffer = (char*)xmalloc(BUF_SZ*sizeof(char));
     char** vect;
     pid_t pid;
@@ -15,8 +15,11 @@ int main(int argc, char** argv)
 
     while(1)
     {
+		signal(SIGINT, quit);
+		dir = getcwd(buffer, BUF_SZ);
+		my_str(dir);
         my_str("&>");
-        n = read(0,(void*)buffer,BUF_SZ-1);
+        n = read(0,(void*)buffer,3);
         buffer[n-1] = '\0';
         
         vect = my_str2vect(buffer);
