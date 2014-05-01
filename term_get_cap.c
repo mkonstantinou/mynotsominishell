@@ -26,8 +26,20 @@ char check_char(char *c)
         return 'u';
     else if(!my_strcmp(c, gl_env.down) || !my_strcmp(c, KD))
         return 'd';
-    //else if(my_strcmp(c, gl_env.esc) == 0)
-      //  return ESC;
+	else if(c[0] == CTRL_K)
+        return 'k';
+    else if(c[0] == CTRL_Y)
+        return 'y';
+    else if(c[0] == CTRL_A)
+        return 'a';
+    else if(c[0] == CTRL_E)
+        return 'e';
+    else if(c[0] == CTRL_L)
+        return 't';
+    else if(c[0] == CTRL_C)
+        return 'c';
+    else if(my_strcmp(c, gl_env.esc) == 0)
+        return ESC;
     else {
         return '\0';
     }

@@ -7,7 +7,7 @@ int main(int argc, char** argv)
     int m;
 	int array[100];
     init_terminal();
-	char *dir; 
+	char *dir;
     char* buffer = (char*)xmalloc(BUF_SZ*sizeof(char));
     char** vect;
     pid_t pid;
@@ -37,6 +37,8 @@ int main(int argc, char** argv)
                     my_str("Cannot find directory");
                     
         }
+		else if(check_char(buffer) == 'c')
+			quit();
         else
         {
             if ((pid=fork()) < 0)
