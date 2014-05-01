@@ -5,7 +5,7 @@ int main(int argc, char** argv)
 {
     int n;
     int m;
-    
+	int array[100];
     init_terminal();
     
     char* buffer = (char*)xmalloc(BUF_SZ*sizeof(char));

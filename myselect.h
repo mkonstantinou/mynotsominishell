@@ -18,6 +18,8 @@
 #define READMIN 3
 /* used to return from min if 3 bytes have been read. Needed for things like characters which are \E[A B C or D */
 
+#define BUF_SZ 256
+
 #ifndef NULL
 #define NULL (0)
 #endif
@@ -40,7 +42,8 @@
 #define CURSORON "ve"
 #define VECAP "\E[?25h" // actual string for VE in case tgetstr doesn't find it
 #define VICAP "\E[?25l" // same as above but for VI
-#define ESC "\033"
+//#define ESC "\033"
+#define ESC 27
 #define SPACE "\040"
 #define ENTER "\013"
 
