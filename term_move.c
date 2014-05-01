@@ -10,6 +10,7 @@ void term_move(int x)
 
 void moveup()
 {
+	/*
 	int i;
 	int x = gl_env.elements[gl_env.pos].x;
 	int y = gl_env.elements[gl_env.pos].y - 1;
@@ -28,10 +29,12 @@ void moveup()
 		else
 			;
 	}
+	*/
 }
 
 void movedown()
 {
+	/*
 	int i;
     int x = gl_env.elements[gl_env.pos].x;
     int y = gl_env.elements[gl_env.pos].y + 1;
@@ -50,7 +53,7 @@ void movedown()
         else
             ;
     }
-
+	*/
 }
 
 void moveleft()
