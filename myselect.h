@@ -107,5 +107,5 @@ void	term_underline();
 void	term_standout();
 void	term_standend();
 void	term_underend();
-void    quit(int)
+void    quit(int);
 #endif
