@@ -1,5 +1,35 @@
 #include "myselect.h"
 
+
+void init_caps()
+{
+    char *term;
+    term = getenv("TERM");
+    if(term != NULL)
+    {
+        char bp[2048];
+        tgetent(bp, term);
+        //not sure if arrows are needed
+        gl_env.up = term_get_cap(UP);
+        gl_env.down = term_get_cap(DOWN);
+        gl_env.right = term_get_cap(RIGHT);
+        gl_env.left = term_get_cap(LEFT);
+        gl_env.clear = term_get_cap(CLEAR);
+        gl_env.move = term_get_cap(MOVE);
+        gl_env.standout = term_get_cap(STANDOUT);
+        gl_env.stand_end = term_get_cap(STAND_END);
+        gl_env.underline = term_get_cap(UNDERLINE);
+        gl_env.under_end = term_get_cap(UNDER_END);
+        //watch this
+        gl_env.esc = (char *)xmalloc(2 * sizeof(char));
+        gl_env.esc[0] = ESC;
+        gl_env.esc[1] = '\0';
+    }
+    else {
+        my_panic("Term is null!\n");
+    }
+}
+
 void init_terminal()
 {
     int fd;
@@ -32,4 +62,5 @@ void init_terminal()
     }
 
     get_win_size();
+	init_caps();
 }
