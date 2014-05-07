@@ -24,7 +24,10 @@ void init_caps()
         gl_env.esc = (char *)xmalloc(2 * sizeof(char));
         gl_env.esc[0] = ESC;
         gl_env.esc[1] = '\0';
-    }
+	gl_env.backspace = (char*)xmalloc(2 * sizeof(char));
+	gl_env.backspace[0] = BACKSPACE;
+	gl_env.backspace[1] = '\0';	
+   }
     else {
         my_panic("Term is null!\n");
     }

@@ -16,6 +16,7 @@ char check_char(char *c)
 {
     if(c[0] == '\n')
         return '\n';
+   	 
     else if(!my_strcmp(c, gl_env.left) || !my_strcmp(c, KL))
         return 'l';
     else if(!my_strcmp(c, gl_env.right) || !my_strcmp(c, KR))
@@ -43,8 +44,13 @@ char check_char(char *c)
     else if(my_strcmp(c, gl_env.esc) == 0)
     {
         quit(0);
-	return ESC;
+		return ESC;
     }
+    else if (my_strcmp(c, gl_env.backspace) == 0)
+	{
+		if (gl_env.nbelems > 0)
+			gl_env.strbuff[--gl_env.nbelems] = '\0';
+	}
     else 
     {
         return '\0';
