@@ -16,8 +16,6 @@ char check_char(char *c)
 {
     if(c[0] == '\n')
         return '\n';
-    else if(c[0] == ' ')
-        return ' ';
     else if(!my_strcmp(c, gl_env.left) || !my_strcmp(c, KL))
         return 'l';
     else if(!my_strcmp(c, gl_env.right) || !my_strcmp(c, KR))
@@ -26,10 +24,14 @@ char check_char(char *c)
         return 'u';
     else if(!my_strcmp(c, gl_env.down) || !my_strcmp(c, KD))
         return 'd';
-	else if(c[0] == CTRL_K)
-        return 'k';
+    else if(c[0] == CTRL_K)
+    {
+	return 'k';
+    }
     else if(c[0] == CTRL_Y)
+    {
         return 'y';
+    }
     else if(c[0] == CTRL_A)
         return 'a';
     else if(c[0] == CTRL_E)
@@ -39,8 +41,12 @@ char check_char(char *c)
     else if(c[0] == CTRL_C)
         return 'c';
     else if(my_strcmp(c, gl_env.esc) == 0)
-        return ESC;
-    else {
+    {
+        quit(0);
+	return ESC;
+    }
+    else 
+    {
         return '\0';
     }
 }

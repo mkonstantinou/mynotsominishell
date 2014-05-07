@@ -11,20 +11,54 @@ int main(int argc, char** argv)
     char* buffer = (char *)xmalloc(BUF_SZ*sizeof(char));
     char** vect;
     pid_t pid;
-    
+    char check;
 
     while(1)
     {
-		signal(SIGINT, quit);
-		dir = getcwd(buffer, BUF_SZ);
-		my_str(dir);
+	signal(SIGINT, quit);
+	dir = getcwd(buffer, BUF_SZ);
+	my_str(dir);
         my_str("&>");
         n = read(0, (void*)buffer, 3);
         buffer[n] = '\0';
         
-        vect = my_str2vect(buffer);
 
-        if (!my_strcmp(buffer, "exit"))
+	check = check_char(buffer);
+	my_char(check);
+	my_char('\n');
+
+	if (check == '\0')
+	{
+	    //Add to stringbuffer 
+	}	
+	else if (check == '\n')
+	{
+            vect = my_str2vect(buffer);
+            
+	    if ((pid=fork()) < 0)
+            {
+                my_str("Process failed to fork\n");
+                exit(1);
+            }
+
+            if (pid>0) //Parent
+            {
+                wait();
+            }
+            else
+            {
+                if (execvp(vect[0], vect) < 0)
+                {
+                    my_str("ERROR: ");
+                    my_str(my_strconcat(vect[0], " not found.\n"));
+                }
+                exit(1);
+            }
+	}
+        
+	
+	/*
+	if (!my_strcmp(buffer, "exit"))
         {
             my_str("thanks for doing the things bye\n");
             exit(0); 
@@ -60,6 +94,6 @@ int main(int argc, char** argv)
                 }
                 exit(1);
             }
-        }
+        }*/
     }
 }
