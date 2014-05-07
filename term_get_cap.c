@@ -44,13 +44,14 @@ char check_char(char *c)
     else if(my_strcmp(c, gl_env.esc) == 0)
     {
         quit(0);
-		return ESC;
+	return ESC;
     }
     else if (my_strcmp(c, gl_env.backspace) == 0)
-	{
-		if (gl_env.nbelems > 0)
-			gl_env.strbuff[--gl_env.nbelems] = '\0';
-	}
+    {
+	if (gl_env.nbelems > 0)
+    	    gl_env.strbuff[--gl_env.nbelems] = '\0';
+        return 'b';
+    }
     else 
     {
         return '\0';

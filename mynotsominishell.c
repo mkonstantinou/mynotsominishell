@@ -26,7 +26,6 @@ int main(int argc, char** argv)
         buffer[n] = '\0';
 
 	check = check_char(buffer);
-	my_termprint(check);
 
 	if (check == '\0')
 	{
