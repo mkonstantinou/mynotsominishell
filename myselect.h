@@ -53,7 +53,7 @@
 
 #define SPACE "\040"
 #define ENTER "\013"
-
+#define BACKSPACE 127
 
 typedef struct	s_elem
 {
@@ -71,6 +71,7 @@ typedef struct	s_env
   char		*up;
   char		*down;
   char		*esc;
+  char		*backspace;
   char		*underline;
   char		*under_end;
   char		*standout;
