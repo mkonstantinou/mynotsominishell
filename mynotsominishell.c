@@ -37,8 +37,8 @@ int main(int argc, char** argv)
                     my_str("Cannot find directory");
                     
         }
-		else if(check_char(buffer) == 'c')
-			quit();
+		else if(check_char(buffer) == ESC)
+			quit(0);
         else
         {
             if ((pid=fork()) < 0)
