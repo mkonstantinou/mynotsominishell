@@ -5,10 +5,10 @@ int main(int argc, char** argv)
 {
     int n;
     int m;
-	int array[100];
+	char array[100];
     init_terminal();
 	char *dir;
-    char* buffer = (char*)xmalloc(BUF_SZ*sizeof(char));
+    char* buffer = (char *)xmalloc(BUF_SZ*sizeof(char));
     char** vect;
     pid_t pid;
     
@@ -19,8 +19,8 @@ int main(int argc, char** argv)
 		dir = getcwd(buffer, BUF_SZ);
 		my_str(dir);
         my_str("&>");
-        n = read(0,(void*)buffer,3);
-        buffer[n-1] = '\0';
+        n = read(0, (void*)buffer, 3);
+        buffer[n] = '\0';
         
         vect = my_str2vect(buffer);
 
