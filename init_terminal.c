@@ -50,19 +50,19 @@ void init_terminal()
         exit(1);
     }
 
-	ioctl(0, TCGETA, &line);
+    ioctl(0, TCGETA, &line);
     gl_env.line_backup = line;
-    line.c_lflag &= ~(ICANON | ECHO | ISIG);
+    line.c_lflag &= ~(ICANON | ECHO  | ISIG);
     line.c_cc[VMIN] = READMIN;
     line.c_cc[VTIME] = READTIME;
-	ioctl(0, TCSETA, &line);
+    ioctl(0, TCSETA, &line);
 
     if (tcsetattr(fd, TCSAFLUSH, &line) < 0)
     {
         my_str("error tcsetattr");
         exit(1);
-	}
+    }
 
     get_win_size();
-	init_caps();
+    init_caps();
 }

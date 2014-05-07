@@ -31,13 +31,16 @@ int main(int argc, char** argv)
         n = read(0, (void *)buffer, 3);
         buffer[n] = '\0';
 
+	gl_env.nbelems = 0;
+
 	check = check_char(buffer);
-	my_char(check);
-	my_char('\n');
+	my_termprint(check);
+	my_termprint('\n');
 
 	if (check == '\0')
 	{
-	    //Add to stringbuffer 
+	    //Add to stringbuffer
+		
 	}	
 	else if (check == '\n')
 	{
