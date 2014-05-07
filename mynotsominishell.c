@@ -11,7 +11,6 @@ int main(int argc, char** argv)
     char* buffer = (char *)xmalloc(BUF_SZ*sizeof(char));
     char** vect;
     pid_t pid;
-    
 
     while(1)
     {
@@ -19,23 +18,21 @@ int main(int argc, char** argv)
 		dir = getcwd(buffer, BUF_SZ);
 		my_str(dir);
         my_str("&>");
-        n = read(0, (void*)buffer, 3);
+        n = read(0, (void *)buffer, 3);
         buffer[n] = '\0';
-        
+
         vect = my_str2vect(buffer);
 
         if (!my_strcmp(buffer, "exit"))
         {
             my_str("thanks for doing the things bye\n");
-            exit(0); 
+            exit(0);
         }
         else if (!my_strcmp(vect[0],"cd"))
         {
-            
             if (vect[1] != NULL)
                 if ((m =chdir(vect[1])) < 0)
                     my_str("Cannot find directory");
-                    
         }
 		else if(check_char(buffer) == ESC)
 			quit(0);

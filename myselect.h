@@ -85,7 +85,10 @@ typedef struct	s_env
   int		stdio_backup;
   int		nbelems;
   int		pos;
-  t_elem	*elements;
+  t_elem    *elements;
+  char	    *strbuff;
+  char      history[100];
+  char      *copybuff;
 }		t_env;
 
 t_env	gl_env;
