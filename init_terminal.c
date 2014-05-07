@@ -61,7 +61,9 @@ void init_terminal()
     {
         my_str("error tcsetattr");
         exit(1);
-	}
+    }
+    gl_env.strbuff = (char*)xmalloc(BUF_SZ * sizeof(char));
+    gl_env.copybuff = (char*)xmalloc(BUF_SZ * sizeof(char));
 
     get_win_size();
 	init_caps();

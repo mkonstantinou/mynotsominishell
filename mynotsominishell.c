@@ -1,47 +1,43 @@
-
-
-
-
-
-
-
 #include "../lib/my.h"
-
-
 #include "myselect.h"
 
 int main(int argc, char** argv)
 {
     int n;
     int m;
-	char array[100];
+    char array[100];
     init_terminal();
-	char *dir;
+    char *dir;
     char* buffer = (char *)xmalloc(BUF_SZ*sizeof(char));
     char** vect;
     pid_t pid;
     char check;
+    term_clear();
 
-    while(1)
-    {
-	signal(SIGINT, quit);
 	dir = getcwd(buffer, BUF_SZ);
 	my_str(dir);
         my_str("&>");
+    while(1)
+    {
+	signal(SIGINT, quit);
+
+
         n = read(0, (void *)buffer, 3);
         buffer[n] = '\0';
 
 	check = check_char(buffer);
-	my_char(check);
-	my_char('\n');
+	my_termprint(check);
 
 	if (check == '\0')
 	{
-	    //Add to stringbuffer 
+	    //Add to stringbuffer
+	    gl_env.strbuff[gl_env.nbelems] = buffer[0];
+	    gl_env.nbelems++;
+	    my_termprint(buffer[0]);
 	}	
 	else if (check == '\n')
 	{
-            vect = my_str2vect(buffer);
+            vect = my_str2vect(gl_env.strbuff);
             
 	    if ((pid=fork()) < 0)
             {
@@ -62,6 +58,11 @@ int main(int argc, char** argv)
                 }
                 exit(1);
             }
+	    dir = getcwd(buffer, BUF_SZ);
+	    my_str(dir);
+            my_str("&>");
+	    gl_env.strbuff = (char*)xmalloc(BUF_SZ*sizeof(char));
+	    gl_env.nbelems = 0;
 	}
         
 	
