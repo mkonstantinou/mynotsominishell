@@ -14,73 +14,39 @@ int main(int argc, char** argv)
     char check;
     term_clear();
 
-	dir = getcwd(buffer, BUF_SZ);
-	my_str(dir);
-        my_str("&>");
+    gl_env.history = (char**)xmalloc(HISTORYMAX * sizeof(char*));
+
+    dir = getcwd(buffer, BUF_SZ);
+    my_str(dir);
+    my_str("&>");
     while(1)
     {
-	signal(SIGINT, quit);
-
-
+        signal(SIGINT, quit);
         n = read(0, (void *)buffer, 3);
         buffer[n] = '\0';
 
-	check = check_char(buffer);
-
-	if (check == '\0')
-	{
-	    //Add to stringbuffer
-	    gl_env.strbuff[gl_env.nbelems] = buffer[0];
-	    gl_env.nbelems++;
-	    my_termprint(buffer[0]);
-	}	
-	else if (check == '\n')
-	{
-            vect = my_str2vect(gl_env.strbuff);
-            
-	    if ((pid=fork()) < 0)
-            {
-                my_str("Process failed to fork\n");
-                exit(1);
-            }
-
-            if (pid>0) //Parent
-            {
-                wait();
-            }
-            else
-            {
-                if (execvp(vect[0], vect) < 0)
-                {
-                    my_str("ERROR: ");
-                    my_str(my_strconcat(vect[0], " not found.\n"));
-                }
-                exit(1);
-            }
-	    dir = getcwd(buffer, BUF_SZ);
-	    my_str(dir);
-            my_str("&>");
-	    gl_env.strbuff = (char*)xmalloc(BUF_SZ*sizeof(char));
-	    gl_env.nbelems = 0;
-	}
+        check = check_char(buffer);
         
-	
-	/*
-	if (!my_strcmp(buffer, "exit"))
+        if (check == '\0')
         {
-            my_str("thanks for doing the things bye\n");
-            exit(0);
+            //Add to stringbuffer
+            gl_env.strbuff[gl_env.nbelems] = buffer[0];
+            gl_env.nbelems++;
+            my_termprint(buffer[0]);
         }
-        else if (!my_strcmp(vect[0],"cd"))
+        else if (check == 'l' || check == 'L')
         {
-            if (vect[1] != NULL)
-                if ((m =chdir(vect[1])) < 0)
-                    my_str("Cannot find directory");
+            dir = getcwd(buffer, BUF_SZ); 
+            my_str(dir);
+            my_str("&>");
+            my_str(gl_env.strbuff);
         }
-		else if(check_char(buffer) == ESC)
-			quit(0);
-        else
+        else if (check == '\n')
         {
+            my_termprint('\n');
+
+            vect = my_str2vect(gl_env.strbuff);
+
             if ((pid=fork()) < 0)
             {
                 my_str("Process failed to fork\n");
@@ -100,6 +66,49 @@ int main(int argc, char** argv)
                 }
                 exit(1);
             }
-        }*/
+            dir = getcwd(buffer, BUF_SZ);
+            my_str(dir);
+            my_str("&>");
+            gl_env.strbuff = (char*)xmalloc(BUF_SZ*sizeof(char));
+            gl_env.nbelems = 0;
+        }
+
+
+        /*
+           if (!my_strcmp(buffer, "exit"))
+           {
+           my_str("thanks for doing the things bye\n");
+           exit(0);
+           }
+           else if (!my_strcmp(vect[0],"cd"))
+           {
+           if (vect[1] != NULL)
+           if ((m =chdir(vect[1])) < 0)
+           my_str("Cannot find directory");
+           }
+           else if(check_char(buffer) == ESC)
+           quit(0);
+           else
+           {
+           if ((pid=fork()) < 0)
+           {
+           my_str("Process failed to fork\n");
+           exit(1);
+           }
+
+           if (pid>0) //Parent
+           {
+           wait();
+           }
+           else
+           {
+           if (execvp(vect[0], vect) < 0)
+           {
+           my_str("ERROR: ");
+           my_str(my_strconcat(vect[0], " not found.\n"));
+           }
+           exit(1);
+           }
+           }*/
     }
 }

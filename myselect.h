@@ -11,6 +11,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <termcap.h>
+#include "../lib/mylist.h"
 
 #define READTIME 1
 /* used to return from read after 1/10th of  second passed from the first byte read */
@@ -40,15 +41,16 @@
 #define UNDER_END "ue"
 #define CURSOROFF "vi"
 #define CURSORON "ve"
+#define HISTORYMAX 100
 #define VECAP "\E[?25h" // actual string for VE in case tgetstr doesn't find it
 #define VICAP "\E[?25l" // same as above but for VI
 //#define ESC "\033"
 #define ESC 27
-#define CTRL_K 43
-#define CTRL_Y 57
-#define CTRL_A 33
-#define CTRL_E 37
-#define CTRL_L 44
+#define CTRL_K 11
+#define CTRL_Y 25
+#define CTRL_A 1
+#define CTRL_E 5
+#define CTRL_L 12
 #define CTRL_C 35
 
 #define SPACE "\040"
@@ -88,7 +90,10 @@ typedef struct	s_env
   int		pos;
   t_elem    *elements;
   char	    *strbuff;
-  char      history[100];
+  //char      *history[HISTORYMAX];
+  char      **history;
+  int       historysize;
+  int       historyindex;
   char      *copybuff;
 }		t_env;
 

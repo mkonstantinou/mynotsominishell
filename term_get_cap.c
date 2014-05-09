@@ -5,51 +5,110 @@
 
 char *term_get_cap(char *cap)
 {
-	char *str;
-	static char area[2048];
-	if(!(str = tgetstr(cap, (char **)(&area))))
-		my_panic("Getting cap failed");
-	return str;
+    char *str;
+    static char area[2048];
+    if(!(str = tgetstr(cap, (char **)(&area))))
+        my_panic("Getting cap failed");
+    return str;
 }
 
 char check_char(char *c)
 {
-    if(c[0] == '\n')
-        return '\n';
-   	 
-    else if(!my_strcmp(c, gl_env.left) || !my_strcmp(c, KL))
-        return 'l';
-    else if(!my_strcmp(c, gl_env.right) || !my_strcmp(c, KR))
-        return 'r';
-    else if(!my_strcmp(c, gl_env.up) || !my_strcmp(c, KU))
-        return 'u';
-    else if(!my_strcmp(c, gl_env.down) || !my_strcmp(c, KD))
-        return 'd';
-    else if(c[0] == CTRL_K)
+    char ch = c[0];
+
+    if(ch == '\n')
     {
-	return 'k';
+        //Save command to history
+        if (gl_env.historysize < HISTORYMAX)
+        {
+            gl_env.history[gl_env.historysize] = my_strdup(gl_env.strbuff);
+            gl_env.historysize++;
+            gl_env.historyindex = gl_env.historysize;
+
+        }
+        else
+        {
+            free(gl_env.history[0]);
+            gl_env.history += sizeof(char*); //shift history up
+            gl_env.history[HISTORYMAX] = (char*)xmalloc(sizeof(char*)); //hopefully this isn't previously allocated by the program
+            gl_env.history[HISTORYMAX] = my_strdup(gl_env.strbuff);
+            //historysize and historyindex stay the same
+        }
+        my_termprint('\n');
+        return '\n';
     }
-    else if(c[0] == CTRL_Y)
+    else if(!my_strcmp(c, gl_env.left) || !my_strcmp(c, KL))
+    {
+        //moveleft();
+        return 'l';
+    }
+    else if(!my_strcmp(c, gl_env.right) || !my_strcmp(c, KR))
+    {
+        //moveright();
+        return 'r';
+    }
+    else if(!my_strcmp(c, gl_env.up) || !my_strcmp(c, KU))
+    {
+        if (gl_env.historyindex > 0)
+        {
+            //lineclear();
+            gl_env.historyindex--;
+            gl_env.strbuff = my_strdup(gl_env.history[gl_env.historyindex]);
+            my_str(gl_env.strbuff);
+        }
+        
+        return 'u';
+    }
+    else if(!my_strcmp(c, gl_env.down) || !my_strcmp(c, KD))
+    {
+        
+        if (gl_env.historyindex < HISTORYMAX)
+        {
+            //if historypos is not at the most recent command
+            //lineclear();
+            gl_env.historyindex++;
+            gl_env.strbuff = my_strdup(gl_env.history[gl_env.historyindex]);
+            my_str(gl_env.strbuff);
+        }
+        else if (gl_env.historyindex == HISTORYMAX)
+        {
+            //if historypos is at the most recent command, print the current strbuff
+            //lineclear();
+            gl_env.strbuff = "";
+            my_str(gl_env.strbuff);
+        }
+        
+        return 'd';
+    }
+    else if(ch == CTRL_K)
+    {
+        return 'k';
+    }
+    else if(ch == CTRL_Y)
     {
         return 'y';
     }
-    else if(c[0] == CTRL_A)
+    else if(ch == CTRL_A)
         return 'a';
-    else if(c[0] == CTRL_E)
+    else if(ch == CTRL_E)
         return 'e';
-    else if(c[0] == CTRL_L)
-        return 't';
-    else if(c[0] == CTRL_C)
+    else if(ch == CTRL_L)
+    {
+        //Clear screen, reshow prompt and print current line
+        term_clear();
+        return 'l';
+    }
+    else if(ch == CTRL_C)
         return 'c';
     else if(my_strcmp(c, gl_env.esc) == 0)
     {
         quit(0);
-	return ESC;
+        return ESC;
     }
     else if (my_strcmp(c, gl_env.backspace) == 0)
     {
-	if (gl_env.nbelems > 0)
-    	    gl_env.strbuff[--gl_env.nbelems] = '\0';
+        if (gl_env.nbelems > 0)
+            gl_env.strbuff[--gl_env.nbelems] = '\0';
         return 'b';
     }
     else 
