@@ -5,6 +5,7 @@ int main(int argc, char** argv)
 {
     int n;
     int m;
+	int len;
     char array[100];
     init_terminal();
     char *dir;
@@ -20,6 +21,9 @@ int main(int argc, char** argv)
     dir = getcwd(buffer, BUF_SZ);
     my_str(dir);
     my_str("&>");
+	len = my_strlen(dir);
+	gl_env.x = len + 2;
+	gl_env.y = 0;
     while(1)
     {
 
@@ -70,6 +74,9 @@ int main(int argc, char** argv)
             dir = getcwd(buffer, BUF_SZ);
             my_str(dir);
             my_str("&>");
+			len = my_strlen(dir);
+			gl_env.x = len + 2;
+			
             gl_env.strbuff = (char*)xmalloc(BUF_SZ*sizeof(char));
             gl_env.nbelems = 0;
 

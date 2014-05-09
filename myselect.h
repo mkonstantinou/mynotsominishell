@@ -95,6 +95,8 @@ typedef struct	s_env
   int       historysize;
   int       historyindex;
   char      *copybuff;
+  int 		x;
+  int 		y;
 }		t_env;
 
 t_env	gl_env;

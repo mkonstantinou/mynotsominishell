@@ -58,25 +58,7 @@ void movedown()
 
 void moveleft()
 {
-	int i;
-    int x = (gl_env.elements[gl_env.pos].x);
-	//int x = gl_env.elements[gl_env.pos].x - 3;
-    int y = gl_env.elements[gl_env.pos].y;
-    //term_underend();
-    //show_elems();
-    for(i = 0;i < gl_env.nbelems;i++)
-    {
-        if(gl_env.elements[i].x == x && gl_env.elements[i].y == y)
-        {
-            gl_env.pos = i;
-            term_move(x-1);
-            //term_underline();
-            //show_elems();
-            return;
-        }
-        else
-            ;
-    }
+	
 }
 
 void moveright()
