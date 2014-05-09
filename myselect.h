@@ -83,7 +83,7 @@ typedef struct	s_env
   char		*cursoroff;
   char		*cursoron;
   struct winsize win;
-  struct termios	line_backup;
+  struct termio	line_backup;
   int		flag;
   int		stdio_backup;
   int		nbelems;

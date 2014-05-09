@@ -35,7 +35,7 @@ void init_caps()
 
 void init_terminal()
 {
-    int fd;
+/*    int fd;
     char* name;
     struct termios line;
 
@@ -70,4 +70,26 @@ void init_terminal()
 
     get_win_size();
     init_caps();
+*/
+
+  	struct termio line;
+    ioctl(0, TCGETA, &line);
+    gl_env.line_backup = line;
+    line.c_cc[VMIN] = READMIN;
+    line.c_cc[VTIME] = READTIME;
+    line.c_lflag &= ~(ICANON|ECHO|ISIG);
+    ioctl(0, TCSETA, &line);
+    //--------------------------
+    int fd;
+    char *name;
+    name = ttyname(0);
+    fd = open(name, O_WRONLY);
+    gl_env.stdio_backup = dup(1);
+    dup2(fd, 1);
+
+	gl_env.strbuff = (char*)xmalloc(BUF_SZ * sizeof(char));
+    gl_env.clipboard = (char*)xmalloc(BUF_SZ * sizeof(char));
+	get_win_size();
+    init_caps();
+	signal(SIGINT, quit);
 }
