@@ -17,7 +17,7 @@ int main(int argc, char** argv)
 
     gl_env.history = (char**)xmalloc(HISTORYMAX * sizeof(char*));
     signal(SIGINT, quit);
-
+	signal(SIGWINCH, reprint);
     dir = getcwd(buffer, BUF_SZ);
     my_str(dir);
     my_str("&>");
