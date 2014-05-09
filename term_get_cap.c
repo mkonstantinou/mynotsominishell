@@ -137,9 +137,10 @@ char check_char(char *c)
 			int x = gl_env.x - gl_env.xstart - 1;
 			if(x > 0 && x < gl_env.nbelems)
 			{
+				//my_int(x);
 				int i;
 				int len = my_strlen(gl_env.strbuff);
-				for(i = x; i+1 < len;i++)
+				for(i = x-1; i+1 < len;i++)
 				{
 					gl_env.strbuff[i] = gl_env.strbuff[i+1];
 				}
