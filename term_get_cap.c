@@ -112,8 +112,25 @@ char check_char(char *c)
     }
     else if (my_strcmp(c, gl_env.backspace) == 0)
     {
-        if (gl_env.nbelems > 0)
-            gl_env.strbuff[--gl_env.nbelems] = '\0';
+        /*if (gl_env.nbelems > 0)
+            gl_env.strbuff[--gl_env.nbelems] = '\0';*/
+		if(gl_env.nbelems > 0)
+		{
+			int x = gl_env.x - gl_env.xstart - 1;
+			if(x > 0 && x < gl_env.nbelems)
+			{
+				int i;
+				int len = my_strlen(gl_env.strbuff);
+				for(i = x; i+1 < len;i++)
+				{
+					gl_env.strbuff[i] = gl_env.strbuff[i+1];
+				}
+				gl_env.strbuff[i] = '\0';
+				gl_env.nbelems--;
+			}
+			else if(x >= gl_env.nbelems)
+				gl_env.strbuff[--gl_env.nbelems] = '\0';
+		}
         return 'b';
     }
     else 
