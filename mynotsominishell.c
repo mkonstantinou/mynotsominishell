@@ -35,11 +35,12 @@ int main(int argc, char** argv)
         if (check == '\0')
         {
             //Add to stringbuffer
+			gl_env.x += 1;
             gl_env.strbuff[gl_env.nbelems] = buffer[0];
             gl_env.nbelems++;
             my_termprint(buffer[0]);
         }
-        else if (check == 'l' || check == 'L')
+        else if (check == 'l')
         {
             dir = getcwd(buffer, BUF_SZ); 
             my_str(dir);

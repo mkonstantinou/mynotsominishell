@@ -130,5 +130,5 @@ void	term_standout();
 void	term_standend();
 void	term_underend();
 void    quit(int);
-void	term_move(int);
+void	term_move(int, int);
 #endif

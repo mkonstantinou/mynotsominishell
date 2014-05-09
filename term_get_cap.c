@@ -38,13 +38,13 @@ char check_char(char *c)
     }
     else if(!my_strcmp(c, gl_env.left) || !my_strcmp(c, KL))
     {
-        //moveleft();
-        return 'l';
+        moveleft();
+        return 'L';
     }
     else if(!my_strcmp(c, gl_env.right) || !my_strcmp(c, KR))
     {
-        //moveright();
-        return 'r';
+        moveright();
+        return 'R';
     }
     else if(!my_strcmp(c, gl_env.up) || !my_strcmp(c, KU))
     {
@@ -95,6 +95,7 @@ char check_char(char *c)
     else if(ch == CTRL_L)
     {
         //Clear screen, reshow prompt and print current line
+		gl_env.y = 0;
         term_clear();
         return 'l';
     }
