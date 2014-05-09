@@ -140,11 +140,15 @@ char check_char(char *c)
 				//my_int(x);
 				int i;
 				int len = my_strlen(gl_env.strbuff);
-				for(i = x-1; i+1 < len;i++)
+                moveleft();
+                for(i = x-1; i+1 < len;i++)
 				{
 					gl_env.strbuff[i] = gl_env.strbuff[i+1];
+                    my_termprint(gl_env.strbuff[i+1]);
 				}
-				gl_env.strbuff[i] = '\0';
+                my_termprint(' ');
+				term_move(gl_env.x, gl_env.y);
+                gl_env.strbuff[i] = '\0';
 				gl_env.nbelems--;
 			}
 			else if(x >= gl_env.nbelems)
