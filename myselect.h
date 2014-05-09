@@ -51,7 +51,7 @@
 #define CTRL_A 1
 #define CTRL_E 5
 #define CTRL_L 12
-#define CTRL_C 35
+#define CTRL_C 3
 
 #define SPACE "\040"
 #define ENTER "\013"

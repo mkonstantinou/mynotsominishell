@@ -131,7 +131,10 @@ char check_char(char *c)
         return 'l';
     }
     else if(ch == CTRL_C)
+	{
+		quit(0);
         return 'c';
+	}
     else if(my_strcmp(c, gl_env.esc) == 0)
     {
         quit(0);
