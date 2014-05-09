@@ -24,6 +24,8 @@ int main(int argc, char** argv)
 	len = my_strlen(dir);
 	gl_env.x = len + 2;
 	gl_env.y = 0;
+    gl_env.xstart = gl_env.x-1;
+
     while(1)
     {
 
@@ -83,7 +85,7 @@ int main(int argc, char** argv)
             my_str("&>");
 			len = my_strlen(dir);
 			gl_env.x = len + 2;
-			
+			gl_env.xstart = gl_env.x-1;
             gl_env.strbuff = (char*)xmalloc(BUF_SZ*sizeof(char));
             gl_env.nbelems = 0;
 

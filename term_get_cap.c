@@ -38,12 +38,16 @@ char check_char(char *c)
     }
     else if(!my_strcmp(c, gl_env.left) || !my_strcmp(c, KL))
     {
-        moveleft();
+        //if cursor x is not passed beginning of text
+        if (gl_env.x > gl_env.xstart+1)
+            moveleft();
         return 'L';
     }
     else if(!my_strcmp(c, gl_env.right) || !my_strcmp(c, KR))
     {
-        moveright();
+        //If cursor x is not passed text
+        if (gl_env.x <= (gl_env.xstart + my_strlen(gl_env.strbuff)))
+            moveright();
         return 'R';
     }
     else if(!my_strcmp(c, gl_env.up) || !my_strcmp(c, KU))
