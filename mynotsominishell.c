@@ -26,9 +26,13 @@ int main(int argc, char** argv)
         n = read(0, (void *)buffer, 3);
         buffer[n] = '\0';
 
+<<<<<<< HEAD
 		check = check_char(buffer);
 		//my_termprint(check);
 		//my_termprint('\n');
+=======
+	check = check_char(buffer);
+>>>>>>> 6239c77b6ab9a3015aa34354a5fe12c660987e79
 
 		if (check == '\0')
 		{
