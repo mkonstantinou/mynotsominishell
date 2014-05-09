@@ -89,6 +89,15 @@ char check_char(char *c)
     else if(ch == CTRL_K)
     {
         gl_env.clipboard = my_substr(gl_env.strbuff, gl_env.x-gl_env.xstart-1);
+        int strlen = my_strlen(gl_env.strbuff);
+        int len = my_strlen(gl_env.clipboard);
+        for (; len >= 0; len--)
+        {
+            term_move(gl_env.x + len, gl_env.y);
+            my_termprint(' ');
+            gl_env.strbuff[strlen - len] = '\0';
+        }
+        term_move(gl_env.x, gl_env.y);
         
         return 'k';
     }
