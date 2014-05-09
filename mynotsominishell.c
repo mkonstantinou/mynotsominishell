@@ -26,13 +26,10 @@ int main(int argc, char** argv)
         n = read(0, (void *)buffer, 3);
         buffer[n] = '\0';
 
-<<<<<<< HEAD
 		check = check_char(buffer);
 		//my_termprint(check);
 		//my_termprint('\n');
-=======
-	check = check_char(buffer);
->>>>>>> 6239c77b6ab9a3015aa34354a5fe12c660987e79
+		check = check_char(buffer);
 
 		if (check == '\0')
 		{
@@ -44,7 +41,7 @@ int main(int argc, char** argv)
 		else if (check == '\n')
 		{
             vect = my_str2vect(gl_env.strbuff);
-
+			my_termprint('\n');
 	    	if ((pid=fork()) < 0)
             	{
                 	my_str("Process failed to fork\n");
@@ -57,7 +54,11 @@ int main(int argc, char** argv)
             }
             else
             {
-                if (execvp(vect[0], vect) < 0)
+				if(my_strcmp(vect[0], "cd") == 0)
+				{
+					chdir(vect[1]);
+				}
+                else if (execvp(vect[0], vect) < 0)
                 {
                     my_str("ERROR: ");
                     my_str(my_strconcat(vect[0], " not found.\n"));
@@ -65,7 +66,7 @@ int main(int argc, char** argv)
                 exit(1);
             }
 	    	dir = getcwd(buffer, BUF_SZ);
-	    	my_str(dir);
+			my_str(dir);
             my_str("&>");
 	    	gl_env.strbuff = (char*)xmalloc(BUF_SZ*sizeof(char));
 	    	gl_env.nbelems = 0;
