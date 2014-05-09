@@ -14,46 +14,38 @@ int main(int argc, char** argv)
     char check;
     term_clear();
 
+	gl_env.nbelems = 0;
 	dir = getcwd(buffer, BUF_SZ);
 	my_str(dir);
         my_str("&>");
     while(1)
     {
-	signal(SIGINT, quit);
+		signal(SIGINT, quit);
 
 
         n = read(0, (void *)buffer, 3);
         buffer[n] = '\0';
 
-	gl_env.nbelems = 0;
+		check = check_char(buffer);
+		//my_termprint(check);
+		//my_termprint('\n');
 
-	check = check_char(buffer);
-	my_termprint(check);
-<<<<<<< HEAD
-	my_termprint('\n');
-=======
->>>>>>> 076c0d3e74f43a04c1a1760d21a1a36890861ee9
-
-	if (check == '\0')
-	{
-	    //Add to stringbuffer
-<<<<<<< HEAD
-		
-=======
-	    gl_env.strbuff[gl_env.nbelems] = buffer[0];
-	    gl_env.nbelems++;
-	    my_termprint(buffer[0]);
->>>>>>> 076c0d3e74f43a04c1a1760d21a1a36890861ee9
-	}	
-	else if (check == '\n')
-	{
+		if (check == '\0')
+		{
+	    	//Add to stringbuffer
+	    	gl_env.strbuff[gl_env.nbelems] = buffer[0];
+	    	gl_env.nbelems += 1;
+	    	my_termprint(buffer[0]);
+		}
+		else if (check == '\n')
+		{
             vect = my_str2vect(gl_env.strbuff);
-            
-	    if ((pid=fork()) < 0)
-            {
-                my_str("Process failed to fork\n");
-                exit(1);
-            }
+
+	    	if ((pid=fork()) < 0)
+            	{
+                	my_str("Process failed to fork\n");
+                	exit(1);
+            	}
 
             if (pid>0) //Parent
             {
@@ -68,12 +60,12 @@ int main(int argc, char** argv)
                 }
                 exit(1);
             }
-	    dir = getcwd(buffer, BUF_SZ);
-	    my_str(dir);
+	    	dir = getcwd(buffer, BUF_SZ);
+	    	my_str(dir);
             my_str("&>");
-	    gl_env.strbuff = (char*)xmalloc(BUF_SZ*sizeof(char));
-	    gl_env.nbelems = 0;
-	}
+	    	gl_env.strbuff = (char*)xmalloc(BUF_SZ*sizeof(char));
+	    	gl_env.nbelems = 0;
+		}
         
 	
 	/*
