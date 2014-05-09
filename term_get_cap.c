@@ -57,6 +57,7 @@ char check_char(char *c)
             //lineclear();
             gl_env.historyindex--;
             gl_env.strbuff = my_strdup(gl_env.history[gl_env.historyindex]);
+            gl_env.nbelems = my_strlen(gl_env.strbuff);
             my_str(gl_env.strbuff);
         }
         
@@ -71,6 +72,7 @@ char check_char(char *c)
             //lineclear();
             gl_env.historyindex++;
             gl_env.strbuff = my_strdup(gl_env.history[gl_env.historyindex]);
+            gl_env.nbelems = my_strlen(gl_env.strbuff);
             my_str(gl_env.strbuff);
         }
         else if (gl_env.historyindex == HISTORYMAX)
@@ -78,6 +80,7 @@ char check_char(char *c)
             //if historypos is at the most recent command, print the current strbuff
             //lineclear();
             gl_env.strbuff = "";
+            gl_env.nbelems = 0;
             my_str(gl_env.strbuff);
         }
         
