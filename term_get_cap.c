@@ -34,7 +34,6 @@ char check_char(char *c)
             gl_env.history[HISTORYMAX] = my_strdup(gl_env.strbuff);
             //historysize and historyindex stay the same
         }
-        my_termprint('\n');
         return '\n';
     }
     else if(!my_strcmp(c, gl_env.left) || !my_strcmp(c, KL))
@@ -82,6 +81,7 @@ char check_char(char *c)
     }
     else if(ch == CTRL_K)
     {
+
         return 'k';
     }
     else if(ch == CTRL_Y)

@@ -47,8 +47,14 @@ int main(int argc, char** argv)
             my_termprint('\n');
 
             vect = my_str2vect(gl_env.strbuff);
-
-            if ((pid=fork()) < 0)
+           
+            if (!my_strcmp(vect[0], "cd"))
+            {
+                if (vect[1] != NULL)
+                    if ((m =chdir(vect[1])) < 0)
+                        my_str("Cannot find directory");
+            }
+            else if ((pid=fork()) < 0)
             {
                 my_str("Process failed to fork\n");
                 exit(1);
@@ -82,6 +88,7 @@ int main(int argc, char** argv)
                }
                else if (!my_strcmp(vect[0],"cd"))
                {
+
                if (vect[1] != NULL)
                if ((m =chdir(vect[1])) < 0)
                my_str("Cannot find directory");
