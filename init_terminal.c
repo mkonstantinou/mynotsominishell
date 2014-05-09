@@ -1,5 +1,6 @@
 #include "myselect.h"
 
+#include <errno.h>
 
 void init_caps()
 {
@@ -31,47 +32,59 @@ void init_caps()
     else {
         my_panic("Term is null!\n");
     }
+
+
+}
+
+void init_history()
+{
+    int i;
+    int n;
+    int fd;
+    char* filename;
+    char* filebuff;
+    char* buff;
+    char c;
+
+    filename = ".history";
+    filebuff = (char*)xmalloc(BUF_SZ * sizeof(char));
+    buff = (char*)xmalloc(BUF_SZ * sizeof(char));
+   
+    gl_env.history = (char**)xmalloc(HISTORYMAX * sizeof(char*));
+    gl_env.historysize = 0;
+    gl_env.historyindex = 0;
+    fd = open(filename, O_RDONLY);
+    
+    if ( (n=read(fd, (void*)filebuff, BUF_SZ-1)) > 0)
+    {
+        filebuff[n-1] = '\0';
+        for (i=0, c=filebuff[i]; c != '\0'; i++, c=filebuff[i])
+        {
+            if (c != '\n')
+            {
+                buff[i] = c;
+            }
+            else
+            {
+                my_str(buff);
+                buff[i] = '\0';
+                gl_env.history[gl_env.historysize] = my_strdup(buff);
+                gl_env.historysize++;
+                gl_env.historyindex++;
+                buff = (char*)xmalloc(BUF_SZ * sizeof(char));
+            }
+        }
+        if (c == '\0')
+            my_str("null char");
+
+    }
+
+    close(fd);
 }
 
 void init_terminal()
 {
-/*    int fd;
-    char* name;
-    struct termios line;
-
-    name = ttyname(0);
-    fd = open(name, O_WRONLY);
-
-    gl_env.stdio_backup = dup(1);
-    dup2(fd, 1);
-
-    signal(SIGINT, quit);
-
-    if (tcgetattr(fd, &(gl_env.line_backup)) < 0)
-    {
-        my_str("error tcgetattr");
-        exit(1);
-    }
-
-    ioctl(0, TCGETA, &line);
-    gl_env.line_backup = line;
-    line.c_lflag &= ~(ICANON | ECHO | ISIG);
-    line.c_cc[VMIN] = READMIN;
-    line.c_cc[VTIME] = READTIME;
-    ioctl(0, TCSETA, &line);
-
-    if (tcsetattr(fd, TCSAFLUSH, &line) < 0)
-    {
-        my_str("error tcsetattr");
-        exit(1);
-    }
-    gl_env.strbuff = (char*)xmalloc(BUF_SZ * sizeof(char));
-    gl_env.clipboard = (char*)xmalloc(BUF_SZ * sizeof(char));
-
-    get_win_size();
-    init_caps();
-*/
-
+    
   	struct termio line;
     ioctl(0, TCGETA, &line);
     gl_env.line_backup = line;
@@ -91,5 +104,6 @@ void init_terminal()
     gl_env.clipboard = (char*)xmalloc(BUF_SZ * sizeof(char));
 	get_win_size();
     init_caps();
+    init_history();
 	signal(SIGINT, quit);
 }

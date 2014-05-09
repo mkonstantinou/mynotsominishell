@@ -107,6 +107,7 @@ void	init_terminal();
 void	restore_terminal();
 char	*term_get_cap(char*);
 void	init_caps();
+void    init_history();
 int	my_termprint(int);
 void	term_clear();
 void	term_vi();
