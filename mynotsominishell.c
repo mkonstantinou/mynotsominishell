@@ -60,6 +60,8 @@ int main(int argc, char** argv)
                     if ((m =chdir(vect[1])) < 0)
                         my_str("Cannot find directory");
             }
+			else if(!my_strcmp(vect[0], "exit"))
+				quit(0);
             else if ((pid=fork()) < 0)
             {
                 my_str("Process failed to fork\n");
