@@ -12,7 +12,7 @@ void quit(int n)
     //create .history
     for(i=0; gl_env.history[i] != NULL; i++)
     {
-        write(fd, gl_env.history[i], my_strlen(gl_env.history[i]-1));
+        write(fd, gl_env.history[i], my_strlen(gl_env.history[i]));
         write(fd, "\n", 1);
     }
 
