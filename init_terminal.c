@@ -66,7 +66,7 @@ void init_terminal()
         exit(1);
     }
     gl_env.strbuff = (char*)xmalloc(BUF_SZ * sizeof(char));
-    gl_env.copybuff = (char*)xmalloc(BUF_SZ * sizeof(char));
+    gl_env.clipboard = (char*)xmalloc(BUF_SZ * sizeof(char));
 
     get_win_size();
     init_caps();

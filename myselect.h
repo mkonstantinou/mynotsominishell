@@ -94,7 +94,7 @@ typedef struct	s_env
   char      **history;
   int       historysize;
   int       historyindex;
-  char      *copybuff;
+  char      *clipboard;
   int       xstart;
   int 		x;
   int 		y;

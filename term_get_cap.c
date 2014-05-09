@@ -85,17 +85,32 @@ char check_char(char *c)
     }
     else if(ch == CTRL_K)
     {
-
+        gl_env.clipboard = my_substr(gl_env.strbuff, gl_env.x-gl_env.xstart-1);
+        
         return 'k';
     }
     else if(ch == CTRL_Y)
     {
+        if (gl_env.clipboard != NULL)
+        {
+            gl_env.strbuff = my_strdup(gl_env.clipboard);
+            gl_env.nbelems = my_strlen(gl_env.strbuff);
+            my_str(gl_env.strbuff);
+        }
         return 'y';
     }
     else if(ch == CTRL_A)
+    {
+        gl_env.x = gl_env.xstart+1;
+        term_move(gl_env.x, gl_env.y);
         return 'a';
+    }
     else if(ch == CTRL_E)
+    {
+        gl_env.x = gl_env.xstart + my_strlen(gl_env.strbuff);
+        term_move(gl_env.x, gl_env.y);
         return 'e';
+    }
     else if(ch == CTRL_L)
     {
         //Clear screen, reshow prompt and print current line
