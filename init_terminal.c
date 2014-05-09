@@ -53,12 +53,12 @@ void init_terminal()
         exit(1);
     }
 
-	ioctl(0, TCGETA, &line);
+    ioctl(0, TCGETA, &line);
     gl_env.line_backup = line;
     line.c_lflag &= ~(ICANON | ECHO | ISIG);
     line.c_cc[VMIN] = READMIN;
     line.c_cc[VTIME] = READTIME;
-	ioctl(0, TCSETA, &line);
+    ioctl(0, TCSETA, &line);
 
     if (tcsetattr(fd, TCSAFLUSH, &line) < 0)
     {
@@ -69,5 +69,5 @@ void init_terminal()
     gl_env.copybuff = (char*)xmalloc(BUF_SZ * sizeof(char));
 
     get_win_size();
-	init_caps();
+    init_caps();
 }
