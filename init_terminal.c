@@ -44,7 +44,6 @@ void init_history()
     char* filename;
     char* filebuff;
     char* buff;
-    char c;
 
     i=0;
     filename = ".history";
@@ -66,7 +65,6 @@ void init_history()
         else
         {
             buff[i] = '\0';
-            my_str(buff);
             gl_env.history[gl_env.historysize] = my_strdup(buff);
             gl_env.historysize++;
             gl_env.historyindex++;
@@ -74,31 +72,7 @@ void init_history()
             i = 0;
         }
     }
-    /*
-    if ( (n=read(fd, (void*)filebuff, BUF_SZ-1)) > 0)
-    {
-        filebuff[n-1] = '\0';
-        for (i=0, c=filebuff[i]; c > 0; i++, c=filebuff[i])
-        {
-            if (c != '\n')
-            {
-                buff[i] = c;
-            }
-            else
-            {
-                my_str(buff);
-                buff[i] = '\0';
-                gl_env.history[gl_env.historysize] = my_strdup(buff);
-                gl_env.historysize++;
-                gl_env.historyindex++;
-                buff = (char*)xmalloc(BUF_SZ * sizeof(char));
-            }
-        }
-        if (c == '\0')
-            my_str("null char");
 
-    }
-    */
     close(fd);
 }
 

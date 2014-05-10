@@ -54,22 +54,42 @@ char check_char(char *c)
     {
         if (gl_env.historyindex > 0)
         {
-            //lineclear();
+            //Clear current strbuff
+            int strlen = my_strlen(gl_env.strbuff);
+            int start = gl_env.xstart;
+            for (; strlen >= 0; strlen--)
+            {
+                term_move(start + strlen, gl_env.y);
+                my_termprint(' ');
+            }
+            term_move(gl_env.x, gl_env.y);
+
+            //assign and print new strbuff
             gl_env.historyindex--;
             gl_env.strbuff = my_strdup(gl_env.history[gl_env.historyindex]);
             gl_env.nbelems = my_strlen(gl_env.strbuff);
             my_str(gl_env.strbuff);
         }
-        
+
         return 'u';
     }
     else if(!my_strcmp(c, gl_env.down) || !my_strcmp(c, KD))
     {
-        
+
         if (gl_env.historyindex < HISTORYMAX)
         {
             //if historypos is not at the most recent command
-            //lineclear();
+            //Clear current strbuff
+            int strlen = my_strlen(gl_env.strbuff);
+            int start = gl_env.xstart;
+            for (; strlen >= 0; strlen--)
+            {
+                term_move(start + strlen, gl_env.y);
+                my_termprint(' ');
+            }
+            term_move(gl_env.x, gl_env.y);
+
+            //assign and print new strbuff
             gl_env.historyindex++;
             gl_env.strbuff = my_strdup(gl_env.history[gl_env.historyindex]);
             gl_env.nbelems = my_strlen(gl_env.strbuff);
@@ -78,12 +98,20 @@ char check_char(char *c)
         else if (gl_env.historyindex == HISTORYMAX)
         {
             //if historypos is at the most recent command, print the current strbuff
-            //lineclear();
+            int strlen = my_strlen(gl_env.strbuff);
+            int start = gl_env.xstart;
+            for (; strlen >= 0; strlen--)
+            {
+                term_move(start + strlen, gl_env.y);
+                my_termprint(' ');
+            }
+            term_move(gl_env.x, gl_env.y);
+            
             gl_env.strbuff = "";
             gl_env.nbelems = 0;
             my_str(gl_env.strbuff);
         }
-        
+
         return 'd';
     }
     else if(ch == CTRL_K)
@@ -98,7 +126,7 @@ char check_char(char *c)
             gl_env.strbuff[strlen - len] = '\0';
         }
         term_move(gl_env.x, gl_env.y);
-        
+
         return 'k';
     }
     else if(ch == CTRL_Y)
@@ -126,15 +154,15 @@ char check_char(char *c)
     else if(ch == CTRL_L)
     {
         //Clear screen, reshow prompt and print current line
-		gl_env.y = 0;
+        gl_env.y = 0;
         term_clear();
         return 'l';
     }
     else if(ch == CTRL_C)
-	{
-		quit(0);
+    {
+        quit(0);
         return 'c';
-	}
+    }
     else if(my_strcmp(c, gl_env.esc) == 0)
     {
         quit(0);
@@ -143,34 +171,34 @@ char check_char(char *c)
     else if (my_strcmp(c, gl_env.backspace) == 0)
     {
         /*if (gl_env.nbelems > 0)
-            gl_env.strbuff[--gl_env.nbelems] = '\0';*/
-		if(gl_env.nbelems > 0)
-		{
-			int x = gl_env.x - gl_env.xstart - 1;
-			if(x > 0 && x < gl_env.nbelems)
-			{
-				//my_int(x);
-				int i;
-				int len = my_strlen(gl_env.strbuff);
+          gl_env.strbuff[--gl_env.nbelems] = '\0';*/
+        if(gl_env.nbelems > 0)
+        {
+            int x = gl_env.x - gl_env.xstart - 1;
+            if(x > 0 && x < gl_env.nbelems)
+            {
+                //my_int(x);
+                int i;
+                int len = my_strlen(gl_env.strbuff);
                 moveleft();
                 for(i = x-1; i+1 < len;i++)
-				{
-					gl_env.strbuff[i] = gl_env.strbuff[i+1];
+                {
+                    gl_env.strbuff[i] = gl_env.strbuff[i+1];
                     my_termprint(gl_env.strbuff[i+1]);
-				}
+                }
                 my_termprint(' ');
-				term_move(gl_env.x, gl_env.y);
+                term_move(gl_env.x, gl_env.y);
                 gl_env.strbuff[i] = '\0';
-				gl_env.nbelems--;
-			}
-			else if(x >= gl_env.nbelems)        //end of string
+                gl_env.nbelems--;
+            }
+            else if(x >= gl_env.nbelems)        //end of string
             {
-				gl_env.strbuff[--gl_env.nbelems] = '\0';
+                gl_env.strbuff[--gl_env.nbelems] = '\0';
                 moveleft();
                 my_termprint(' ');
                 term_move(gl_env.x, gl_env.y);
             }
-		}
+        }
         return 'b';
     }
     else 
