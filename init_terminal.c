@@ -1,6 +1,7 @@
 #include "myselect.h"
-
-#include <errno.h>
+/* Scott Harris
+ * Matthew Konstantinou
+ */
 
 void init_caps()
 {

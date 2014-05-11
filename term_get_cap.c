@@ -1,6 +1,9 @@
 #include "myselect.h"
 /*Pre: Takes in the cap
  *Post: Returns the cap code
+ *
+ * Matthew Konstantinou
+ * Scott Harris
  */
 
 char *term_get_cap(char *cap)
@@ -63,7 +66,7 @@ char check_char(char *c)
             //Clear current strbuff
             int strlen = my_strlen(gl_env.strbuff);
             int start = gl_env.xstart;
-            for (; strlen >= 0; strlen--)
+            for (; strlen > 0; strlen--)
             {
                 term_move(start + strlen, gl_env.y);
                 my_termprint(' ');
@@ -88,7 +91,7 @@ char check_char(char *c)
             //Clear current strbuff
             int strlen = my_strlen(gl_env.strbuff);
             int start = gl_env.xstart;
-            for (; strlen >= 0; strlen--)
+            for (; strlen > 0; strlen--)
             {
                 term_move(start + strlen, gl_env.y);
                 my_termprint(' ');
@@ -184,7 +187,6 @@ char check_char(char *c)
 			reprint(0);
             if(x > 0 && x < gl_env.nbelems)
             {
-                //my_int(x);
                 int i;
                 int len = my_strlen(gl_env.strbuff);
                 moveleft();

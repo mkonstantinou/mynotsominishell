@@ -14,4 +14,6 @@ void reprint(int signal)
 	my_str(dir);
 	my_str("&>");
 	my_str(gl_env.strbuff);
+    gl_env.x = my_strlen(dir) + 2 + gl_env.nbelems;
+    term_move(gl_env.x, gl_env.y);
 }

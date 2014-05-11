@@ -1,4 +1,7 @@
 #include "myselect.h"
+/* Scott Harris
+ * Matthew Konstantinou
+ */
 
 void quit(int n)
 {

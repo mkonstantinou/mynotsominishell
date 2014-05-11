@@ -1,5 +1,17 @@
 #include "../lib/my.h"
 #include "myselect.h"
+/* pre: takes no parameters
+ * post: simple terminal emulator
+ *
+ * README: Because of an error with tracking the Y coordinate of the cursor,
+ * we were unable to backspace/paste/move the cursor on lines there were not at location 0.
+ * To remedy this, we've made backspacing and traversing a line clear the terminal and
+ * reprint at the top of the screen.
+ *
+ * Matthew Konstantinou
+ * Scott Harris
+ */
+
 
 int main(int argc, char** argv)
 {
@@ -91,43 +103,6 @@ int main(int argc, char** argv)
             gl_env.nbelems = 0;
 
 
-            /*
-               if (!my_strcmp(buffer, "exit"))
-               {
-               my_str("thanks for doing the things bye\n");
-               exit(0);
-               }
-               else if (!my_strcmp(vect[0],"cd"))
-               {
-
-               if (vect[1] != NULL)
-               if ((m =chdir(vect[1])) < 0)
-               my_str("Cannot find directory");
-               }
-               else if(check_char(buffer) == ESC)
-               quit(0);
-               else
-               {
-               if ((pid=fork()) < 0)
-               {
-               my_str("Process failed to fork\n");
-               exit(1);
-               }
-
-               if (pid>0) //Parent
-               {
-               wait();
-               }
-               else
-               {
-               if (execvp(vect[0], vect) < 0)
-               {
-               my_str("ERROR: ");
-               my_str(my_strconcat(vect[0], " not found.\n"));
-               }
-               exit(1);
-               }
-               }*/
         }
 
     }
