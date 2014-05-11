@@ -40,14 +40,20 @@ char check_char(char *c)
     {
         //if cursor x is not passed beginning of text
         if (gl_env.x > gl_env.xstart+1)
+		{
+			reprint(0);
             moveleft();
+		}
         return 'L';
     }
     else if(!my_strcmp(c, gl_env.right) || !my_strcmp(c, KR))
     {
         //If cursor x is not passed text
         if (gl_env.x <= (gl_env.xstart + my_strlen(gl_env.strbuff)))
+		{
+			reprint(0);
             moveright();
+		}
         return 'R';
     }
     else if(!my_strcmp(c, gl_env.up) || !my_strcmp(c, KU))
@@ -175,6 +181,7 @@ char check_char(char *c)
         if(gl_env.nbelems > 0)
         {
             int x = gl_env.x - gl_env.xstart - 1;
+			reprint(0);
             if(x > 0 && x < gl_env.nbelems)
             {
                 //my_int(x);
